@@ -4,6 +4,11 @@ require_once 'config.php';
 header("Content-Security-Policy: frame-ancestors 'none';");
 header("X-Frame-Options: DENY");
 
+if(isset($_SESSION['admin_name'])){
+   header('Location: admin_login.php');
+   exit;
+}
+
 if(isset($_SESSION["user_name"])){
    header('Location: user_page.php');
    exit;
@@ -85,8 +90,9 @@ if(isset($_POST['submit'])) {
       ?>
       <input type="email" name="email" required placeholder="Masukkan email kamu" autocomplete="off" value="<?php if(isset($_COOKIE['email'])) { echo htmlspecialchars($_COOKIE['email']); } ?>" style="font-size: 80%;">
       <input type="password" name="password" required placeholder="Masukkan password kamu" autocomplete="off" value="<?php if(isset($_COOKIE['password'])) { echo htmlspecialchars($_COOKIE['password']); } ?>" style="font-size: 80%;">
-      <div style="text-align: left;">
-         <label style="user-select: none;"><input type="checkbox" id="show-password" style="align-items: left; width: auto;"> Show Password</label>
+      <div style="text-align: left; justify-content: space-between; display: flex;">
+         <label style="user-select: none; font-size: 90%;"><input type="checkbox" id="show-password" style="align-items: left; width: auto;"> Show Password</label>
+         <a href="user_lupa_password.php" style="font-size: 90%; text-decoration: none; color: aqua;">Lupa Password?</a>
       </div>
       <div style="text-align: left;">
          <label style="font-size: 100%; user-select: none;"><input type="checkbox" name="remember" value="on" style="align-items: left; width: auto; margin-top: auto;" <?php if(isset($_COOKIE['email'])) { echo "checked"; } ?>> Remember me</label>
